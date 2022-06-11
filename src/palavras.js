@@ -1,3 +1,3 @@
-const PALAVRAS = ['LETRA','RISAO','UREIA', 'TERMO', 'TESTE', 'TEXTO', 'TERNO'];
+const PALAVRAS = ['LETRA','RAZÃO','UREIA', 'TERMO', 'TESTE', 'TEXTO', 'TERNO'];
 
 export default PALAVRAS;
