@@ -29,7 +29,7 @@ export function Home() {
       return 'V'
     }
 
-    if (letrasPalavra.slice(indiceLetra + 1).some(it => it === letraTentativa)) {
+    if (letrasPalavra.some(it => it === letraTentativa)) {
       return 'A'
     }
 
