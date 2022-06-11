@@ -1,0 +1,33 @@
+.headerWrapper {
+  width: 100%;
+  padding: 15px;
+  background-color: rgb(0, 0, 0, 0.3);
+  color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    display: flex;
+    max-width: 600px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      background: none;
+      display: flex;
+      border: 1px solid #FFF;
+      border-radius: 5px;
+      padding: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #FFF;
+    }
+
+    button:hover {
+      color: rgb(0, 0, 0, 0.7);
+      background-color: #FFF;
+    }
+  }
+}
