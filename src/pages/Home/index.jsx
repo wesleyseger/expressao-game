@@ -31,6 +31,7 @@ export function Home() {
     }
 
     if (letrasPalavra.some(it => it === letraTentativa)) {
+      delete letrasPalavra[indiceLetra];
       return 'A'
     }
 
