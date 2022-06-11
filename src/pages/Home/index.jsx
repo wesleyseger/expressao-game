@@ -14,11 +14,12 @@ export function Home() {
       <Header />
       <WordsBox />
       <Keyboard />
-      <Keyboard onClick={verificaPalavra}/>
+      
     </div>
   )
 }
 
+//<Keyboard onClick={verificaPalavra}/>
 function verificaPalavra(tentativa) {//, indicePalavra
     carregaLetrasPalavra(indicePalavra);
     tentativa = tentativa.toUpperCase();
