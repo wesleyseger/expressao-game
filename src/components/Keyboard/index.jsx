@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 
 import { BsBackspace } from 'react-icons/bs';
 
-export function Keyboard() {
+export function Keyboard({ onClick }) {
   return (
     <div className={styles.keyboardWrapper}>
       <div>
@@ -37,7 +37,7 @@ export function Keyboard() {
         <button>B</button>
         <button>N</button>
         <button>M</button>
-        <button className={styles.enterButton}>ENTER</button>
+        <button className={styles.enterButton} onClick={onClick}>ENTER</button>
       </div>
     </div>
   )
