@@ -19,13 +19,14 @@ export function Home() {
 
     retornoPalavras = letrasTentativa.map(defineCor);
 
-    console.log(tentativa);
-    console.log(PALAVRAS[indicePalavra]);
+    console.log('TENTATIVA: ' + tentativa);
+    console.log('A PALAVRA É: ' + PALAVRAS[indicePalavra]);
     console.log(retornoPalavras);
   }
 
   function defineCor(letraTentativa, indiceLetra) {
     if (letraTentativa == letrasPalavra[indiceLetra]) {
+      delete letrasPalavra[indiceLetra];
       return 'V'
     }
 
