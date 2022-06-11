@@ -37,7 +37,7 @@ export function Keyboard({ onClick }) {
         <button>B</button>
         <button>N</button>
         <button>M</button>
-        <button className={styles.enterButton} onClick={onClick()}>ENTER</button>
+        <button className={styles.enterButton} onClick={() => onClick()}>ENTER</button>
       </div>
     </div>
   )
