@@ -1,13 +1,11 @@
 import styles from './styles.module.scss';
 
-export function Word() {
+export function Word({ letras, min, max }) {
   return (
     <div className={styles.wordWrapper}>
-      <span className={styles.colorGreen}>Á</span>
-      <span>U</span>
-      <span>D</span>
-      <span className={styles.colorYellow}>I</span>
-      <span>O</span>
+      {
+        letras.slice(min, max).map((letra, i) => <span key={i} className={styles.colorGreen}>{letra}</span>)
+      }
     </div>
   )
 }
