@@ -10,3 +10,20 @@ body {
   background-color: #fff;
   color: #121214;
 }
+
+body .modal-content{
+  background-color: rgb(20, 20, 20, 0.95);
+  color: #FFF;
+}
+
+body .btn-close{
+  filter: invert();
+}
+
+body .modal-header{
+  border-bottom: none;
+}
+
+body .modal-footer{
+  border-top: none;
+}

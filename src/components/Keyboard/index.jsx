@@ -8,8 +8,6 @@ export function Keyboard({ onClick, onKeyIn, backspace }) {
   var botoesSegundaLinha = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
   var botoesTerceiraLinha = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
 
-
-
   return (
     <div className={styles.keyboardWrapper}>
       <div>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 
 import './styles/global.css';
 import './styles/animations.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Home } from './pages/Home';
 
