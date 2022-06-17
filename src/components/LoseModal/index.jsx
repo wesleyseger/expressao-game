@@ -17,7 +17,7 @@ export function LoseModal({ show, onHide, word, handleRestart }) {
 
   function restartGame() {
     onHide();
-    setTimeout(() => handleRestart, 100)
+    setTimeout(() => handleRestart(), 100)
   }
 
   return (

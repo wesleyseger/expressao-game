@@ -113,10 +113,15 @@ export function Home() {
     })
 
     if (letrasTentativa.join('') === PALAVRAS[indicePalavra])
-      setWinnerModalShow(true);
+      setTimeout(() => {
+        setWinnerModalShow(true);
+      }, 1500)
 
     if (linha + 1 >= 6)
-      setLoseModalShow(true);
+      setTimeout(() => {
+        setLoseModalShow(true);
+      }, 1500)
+
   }
 
   function resetaPalavra() {
@@ -125,7 +130,7 @@ export function Home() {
     setLinha(0);
     indicePalavra = geraIndiceAleatorio();
     console.log('Palavra de id: ' + indicePalavra + ' é: ' + PALAVRAS[indicePalavra]);
-    document.getElementById('wordsPanel').childNodes.forEach(el => el.childNodes.forEach(item => item.style.backgroundColor = 'rgb(0,0,0, 0.3)'))
+    document.getElementById('wordsPanel').childNodes.forEach(el => el.childNodes.forEach(item => item.classList = []))
   }
 
   return (

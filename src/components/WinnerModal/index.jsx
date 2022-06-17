@@ -17,7 +17,7 @@ export function WinnerModal({ show, onHide, word, attempts, handleRestart }) {
 
   function restartGame() {
     onHide();
-    setTimeout(() => handleRestart, 100)
+    setTimeout(() => handleRestart(), 100)
   }
 
   return (
