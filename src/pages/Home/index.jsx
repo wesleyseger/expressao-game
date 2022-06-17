@@ -9,7 +9,7 @@ import styles from './styles.module.scss';
 import { Header } from '../../components/Header';
 import { WordsBox } from '../../components/WordsBox';
 import { Keyboard } from '../../components/Keyboard';
-import PALAVRAS from '../../palavras';
+import PALAVRAS from '../../config/palavras';
 import { useState } from 'react';
 import { WinnerModal } from '../../components/WinnerModal';
 import { LoseModal } from '../../components/LoseModal';
