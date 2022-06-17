@@ -70,25 +70,36 @@ export function Home() {
     letrasPalavra = PALAVRAS[indicePalavra].normalize('NFD').replace(/[\u0300-\u036f]/g, "").split("");
   }
 
-  function defineCor(letraTentativa, indiceLetra) {
+  function defineVerde(letraTentativa, indiceLetra) {
+
     if (letraTentativa == letrasPalavra[indiceLetra]) {
       delete letrasPalavra[indiceLetra];
-      return 'colorGreen'//VERDE
+      return 'colorGreen';//VERDE
+    }
+
+    return letraTentativa;
+  }
+
+  function defineCor(letraTentativa, indiceLetra) {
+
+    if (letraTentativa === 'colorGreen') {
+      return letraTentativa;//VERDE
     }
 
     if (letrasPalavra.some(it => it === letraTentativa)) {
       delete letrasPalavra[indiceLetra];
-      return 'colorYellow'//AZUL
+      return 'colorYellow';//AMARELO
     }
 
-    return 'colorGray'//CINZA
+    return 'colorGray'; //CINZA
   }
 
   function verificaPalavra() {
 
     console.log('Linha:' + linha);
+    var letrasTentativa = letras.slice(getMinLinha(), getMaxLinha());
 
-    if (posicao != getMaxLinha()) {
+    if (posicao != getMaxLinha() || !PALAVRAS.some(it => it.normalize('NFD').replace(/[\u0300-\u036f]/g, "") == letrasTentativa.join(''))) {
       return;
     }
 
@@ -96,9 +107,7 @@ export function Home() {
 
     carregaLetrasPalavra(indicePalavra);
 
-    var letrasTentativa = letras.slice(getMinLinha(), getMaxLinha());
-
-    retornoPalavras = letrasTentativa.map(defineCor);
+    retornoPalavras = letrasTentativa.map(defineVerde).map(defineCor);
 
     console.log('TENTATIVA: ' + letrasTentativa.join(''));
     console.log('A PALAVRA É: ' + PALAVRAS[indicePalavra]);
@@ -112,16 +121,15 @@ export function Home() {
       }, 200 * i)
     })
 
-    if (letrasTentativa.join('') === PALAVRAS[indicePalavra])
+    if (letrasTentativa.join('') === PALAVRAS[indicePalavra]) {
       setTimeout(() => {
         setWinnerModalShow(true);
       }, 1500)
-
-    if (linha + 1 >= 6)
+    } else if (linha + 1 >= 6) {
       setTimeout(() => {
         setLoseModalShow(true);
       }, 1500)
-
+    }
   }
 
   function resetaPalavra() {
