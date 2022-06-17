@@ -11,12 +11,17 @@ import { WordsBox } from '../../components/WordsBox';
 import { Keyboard } from '../../components/Keyboard';
 import PALAVRAS from '../../palavras';
 import { useState } from 'react';
+import { WinnerModal } from '../../components/WinnerModal';
+import { LoseModal } from '../../components/LoseModal';
 
 var retornoPalavras = [];
 var letrasPalavra = [];
 var indicePalavra = geraIndiceAleatorio();
 
 export function Home() {
+
+  const [winnerModalShow, setWinnerModalShow] = useState(false)
+  const [loseModalShow, setLoseModalShow] = useState(false)
 
   let [letras, setLetras] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
   let [linha, setLinha] = useState(0);
@@ -68,15 +73,15 @@ export function Home() {
   function defineCor(letraTentativa, indiceLetra) {
     if (letraTentativa == letrasPalavra[indiceLetra]) {
       delete letrasPalavra[indiceLetra];
-      return 'V'//VERDE
+      return 'colorGreen'//VERDE
     }
 
     if (letrasPalavra.some(it => it === letraTentativa)) {
       delete letrasPalavra[indiceLetra];
-      return 'A'//AZUL
+      return 'colorYellow'//AZUL
     }
 
-    return 'C'//CINZA
+    return 'colorGray'//CINZA
   }
 
   function verificaPalavra() {
@@ -98,6 +103,20 @@ export function Home() {
     console.log('TENTATIVA: ' + letrasTentativa.join(''));
     console.log('A PALAVRA É: ' + PALAVRAS[indicePalavra]);
     console.log(retornoPalavras);
+
+    let panel = document.getElementById('wordsPanel');
+    retornoPalavras.map((item, i) => {
+      setTimeout(() => {
+        panel.childNodes[linha].childNodes[i].classList.add(item)
+        panel.childNodes[linha].childNodes[i].classList.add('rotate-in-center')
+      }, 200 * i)
+    })
+
+    if (letrasTentativa.join('') === PALAVRAS[indicePalavra])
+      setWinnerModalShow(true);
+
+    if (linha + 1 >= 6)
+      setLoseModalShow(true);
   }
 
   function resetaPalavra() {
@@ -105,7 +124,8 @@ export function Home() {
     setPosicao(0);
     setLinha(0);
     indicePalavra = geraIndiceAleatorio();
-    console.log('Palavra de id: ' + indicePalavra + ' é: ' + PALAVRAS[indicePalavra])
+    console.log('Palavra de id: ' + indicePalavra + ' é: ' + PALAVRAS[indicePalavra]);
+    document.getElementById('wordsPanel').childNodes.forEach(el => el.childNodes.forEach(item => item.style.backgroundColor = 'rgb(0,0,0, 0.3)'))
   }
 
   return (
@@ -113,6 +133,8 @@ export function Home() {
       <Header resetaPalavra={resetaPalavra} />
       <WordsBox letras={letras} />
       <Keyboard submitWord={verificaPalavra} onKeyIn={onKeyIn} backspace={backspace} />
+      <WinnerModal show={winnerModalShow} onHide={() => setWinnerModalShow(false)} attempts={linha} word={PALAVRAS[indicePalavra]} handleRestart={() => resetaPalavra()} />
+      <LoseModal show={loseModalShow} onHide={() => setLoseModalShow(false)} word={PALAVRAS[indicePalavra]} handleRestart={() => resetaPalavra()} />
     </div>
   )
 }

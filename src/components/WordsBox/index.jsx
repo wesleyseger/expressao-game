@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 export function WordsBox({ letras }) {
   return (
-    <div className={styles.wordsBoxWrapper}>
+    <div className={styles.wordsBoxWrapper} id="wordsPanel">
       <Word letras={letras} min={0} max={5} />
       <Word letras={letras} min={5} max={10} />
       <Word letras={letras} min={10} max={15} />

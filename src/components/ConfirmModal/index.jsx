@@ -17,14 +17,11 @@ export function ConfirmModal({ show, onHide, onConfirm, message }) {
           Confirmar
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body closeButton
-        className={styles.instructionsModalWrapper}
-      >
+      <Modal.Body>
         <p>
           {message}
         </p>
       </Modal.Body>
-
       <Modal.Footer>
         <Button variant="success" onClick={() => { onConfirm(); onHide() }}>Confirmar</Button>
         <Button variant="danger" onClick={() => onHide()}>Cancelar</Button>

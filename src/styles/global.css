@@ -27,3 +27,15 @@ body .modal-header{
 body .modal-footer{
   border-top: none;
 }
+
+body div .colorGreen {
+  background-color: #3AA394;
+}
+
+body div .colorYellow {
+  background-color: #e1ac4f;
+}
+
+body div .colorGray {
+  background-color: #686868;
+}
