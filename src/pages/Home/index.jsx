@@ -1,3 +1,9 @@
+/*
+A = NO LUGAR ERRADO (AMARELO)
+C = NAO INCLUI
+V = CERTO (VERDE)
+*/
+
 import styles from './styles.module.scss';
 
 import { Header } from '../../components/Header';
@@ -15,7 +21,6 @@ export function Home() {
   let [letras, setLetras] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
   let [linha, setLinha] = useState(0);
   let [posicao, setPosicao] = useState(0);
-
 
   function getMinLinha() {
     return linha * 5;
@@ -107,7 +112,7 @@ export function Home() {
     <div className={styles.homeWrapper}>
       <Header resetaPalavra={resetaPalavra} />
       <WordsBox letras={letras} />
-      <Keyboard onClick={verificaPalavra} onKeyIn={onKeyIn} backspace={backspace} />
+      <Keyboard submitWord={verificaPalavra} onKeyIn={onKeyIn} backspace={backspace} />
     </div>
   )
 }
