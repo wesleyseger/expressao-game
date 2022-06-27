@@ -1,4 +1,3 @@
-
 import styles from './styles.module.scss';
 
 import { Modal, Button } from 'react-bootstrap';
@@ -17,7 +16,7 @@ export function WinnerModal({ show, onHide, word, attempts, handleRestart }) {
 
   function restartGame() {
     onHide();
-    setTimeout(() => handleRestart(), 100)
+    setTimeout(() => handleRestart(), 200)
   }
 
   return (
@@ -34,7 +33,7 @@ export function WinnerModal({ show, onHide, word, attempts, handleRestart }) {
 
         <h3>Parabéns!</h3>
         <h5>Você acertou a expressão!</h5>
-        <Word letras={[...word]} />
+        <Word word={[...word]} />
 
         <span className={styles.attempts}>
           <h5>Tentativas:</h5>

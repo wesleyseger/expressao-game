@@ -20,7 +20,7 @@
       align-items: center;
     }
 
-    button {
+    label {
       background: none;
       display: flex;
       border: 1px solid #FFF;
@@ -31,7 +31,7 @@
       color: #FFF;
     }
 
-    button:hover {
+    label:hover {
       color: rgb(0, 0, 0, 0.7);
       background-color: #FFF;
     }

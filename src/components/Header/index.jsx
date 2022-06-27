@@ -2,32 +2,35 @@ import { useState } from 'react';
 
 import styles from './styles.module.scss';
 
-import { IoHelpCircleSharp } from 'react-icons/io5'
-import { VscDebugRestart } from 'react-icons/vsc'
-
 import { InstructionsModal } from '../InstructionsModal';
 import { ConfirmModal } from '../ConfirmModal';
 
-export function Header({ resetaPalavra }) {
+import { IoHelpCircleSharp } from 'react-icons/io5'
+import { VscDebugRestart } from 'react-icons/vsc'
+
+export function Header({ resetWord, setBlockGame }) {
   const [instructionsModalShow, setInstructionsModalShow] = useState(false);
   const [confirmModal, setConfirmModalShow] = useState(false);
 
   return (
     <div className={styles.headerWrapper}>
       <span>
-        <button onClick={() => setInstructionsModalShow(true)}>
+        <label onClick={() => { setInstructionsModalShow(true); setBlockGame(true) }}>
           <IoHelpCircleSharp size={32} />
-        </button>
+        </label>
         <h1>EXPRESSÃO</h1>
-        <button onClick={() => setConfirmModalShow(true)}>
+        <label onClick={() => { setConfirmModalShow(true); setBlockGame(true) }}>
           <VscDebugRestart size={32} />
-        </button>
+        </label>
       </span>
-      <InstructionsModal show={instructionsModalShow} onHide={() => setInstructionsModalShow(false)} />
+      <InstructionsModal
+        show={instructionsModalShow}
+        onHide={() => { setInstructionsModalShow(false); setBlockGame(false); }}
+      />
       <ConfirmModal
         show={confirmModal}
-        onHide={() => setConfirmModalShow(false)}
-        onConfirm={() => resetaPalavra()}
+        onHide={() => { setConfirmModalShow(false); setBlockGame(false); }}
+        onConfirm={() => resetWord()}
         message="Tem certeza que deseja resetar a palavra?"
       />
     </div>

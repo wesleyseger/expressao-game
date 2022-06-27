@@ -11,38 +11,35 @@ export function Keyboard({ submitWord, onKeyIn, backspace }) {
   //receive the key pressed on keyboard
   const handler = ({ key }) => {
     let curKey = key.toUpperCase();
+
     if (acceptedKeys.includes(curKey))
       onKeyIn(curKey);
+
     if (curKey === 'BACKSPACE')
-      backspace()
+      backspace();
+
     if (curKey === 'ENTER')
-      submitWord()
+      submitWord();
   };
 
   useEventListener("keydown", handler);
 
-  var botoesPrimeiraLinha = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
-  var botoesSegundaLinha = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
-  var botoesTerceiraLinha = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
+  var firstLineButtons = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
+  var secondLineButtons = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
+  var thirdLineButtons = ['Z', 'X', 'C', 'V', 'B', 'N', 'M'];
 
   return (
-    <div className={styles.keyboardWrapper}>
+    <div className={styles.keyboardWrapper} id="keyboard">
       <div>
-        {
-          botoesPrimeiraLinha.map((botao, i) => <button key={i} onClick={() => onKeyIn(botao)}>{botao}</button>)
-        }
+        {firstLineButtons.map((button, i) => <label key={i} id={button} onClick={() => onKeyIn(button)}>{button}</label>)}
       </div>
       <div>
-        {
-          botoesSegundaLinha.map((botao, i) => <button key={i} onClick={() => onKeyIn(botao)}>{botao}</button>)
-        }
-        <button className={styles.backButton} onClick={() => backspace()}><span><BsBackspace /></span></button>
+        {secondLineButtons.map((button, i) => <label key={i} id={button} onClick={() => onKeyIn(button)}>{button}</label>)}
+        <label className={styles.backButton} onClick={() => backspace()}><span><BsBackspace /></span></label>
       </div>
       <div>
-        {
-          botoesTerceiraLinha.map((botao, i) => <button key={i} onClick={() => onKeyIn(botao)}>{botao}</button>)
-        }
-        <button className={styles.enterButton} onClick={() => submitWord()}>ENTER</button>
+        {thirdLineButtons.map((button, i) => <label key={i} id={button} onClick={() => onKeyIn(button)}>{button}</label>)}
+        <label className={styles.enterButton} onClick={() => submitWord()}>ENTER</label>
       </div>
     </div>
   )

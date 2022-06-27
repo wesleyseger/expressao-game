@@ -1,6 +1,3 @@
-
-import styles from './styles.module.scss';
-
 import { Modal, Button } from 'react-bootstrap';
 
 export function ConfirmModal({ show, onHide, onConfirm, message }) {

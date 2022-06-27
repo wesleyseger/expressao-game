@@ -18,6 +18,7 @@ body .modal-content{
 
 body .btn-close{
   filter: invert();
+  transition: 0.3s;
 }
 
 body .modal-header{

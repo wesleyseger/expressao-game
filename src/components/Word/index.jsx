@@ -1,11 +1,9 @@
 import styles from './styles.module.scss';
 
-export function Word({ letras, min, max }) {
+export function Word({ word }) {
   return (
     <div className={styles.wordWrapper}>
-      {
-        letras.slice(min, max).map((letra, i) => <span key={i} >{letra}</span>)
-      }
+      {word.map((letter, i) => <span key={i} >{letter}</span>)}
     </div>
   )
 }

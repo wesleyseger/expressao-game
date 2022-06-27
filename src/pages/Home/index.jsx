@@ -1,158 +1,157 @@
-/*
-A = NO LUGAR ERRADO (AMARELO)
-C = NAO INCLUI
-V = CERTO (VERDE)
-*/
+import { useState } from 'react';
 
 import styles from './styles.module.scss';
+
+import WORDS from '../../config/words';
 
 import { Header } from '../../components/Header';
 import { WordsBox } from '../../components/WordsBox';
 import { Keyboard } from '../../components/Keyboard';
-import PALAVRAS from '../../config/palavras';
-import { useState } from 'react';
 import { WinnerModal } from '../../components/WinnerModal';
 import { LoseModal } from '../../components/LoseModal';
 
-var retornoPalavras = [];
-var letrasPalavra = [];
-var indicePalavra = geraIndiceAleatorio();
+var wordIndex = getRandomIndex();
+
+function getRandomIndex() {
+  let rand = Math.random() * (WORDS.length - 1);
+  return Math.ceil(rand);
+}
 
 export function Home() {
 
   const [winnerModalShow, setWinnerModalShow] = useState(false)
   const [loseModalShow, setLoseModalShow] = useState(false)
 
-  let [letras, setLetras] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
-  let [linha, setLinha] = useState(0);
-  let [posicao, setPosicao] = useState(0);
+  var attemptReturn = [];
+  var wordLetters = [];
 
-  function getMinLinha() {
-    return linha * 5;
+  const [blockGame, setBlockGame] = useState(false);
+  const [letters, setLetters] = useState(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+  const [line, setLine] = useState(0);
+  const [position, setPosition] = useState(0);
+
+  function getMinLine() {
+    return line * 5;
   }
 
-  function getMaxLinha() {
-    return (linha + 1) * 5;
+  function getMaxLine() {
+    return (line + 1) * 5;
   }
 
-  function onKeyIn(letra) {
-    if (posicao == getMaxLinha()) {
-      return;
-    }
+  function onKeyIn(letter) {
 
-    var novasLetras = [...letras];
-    novasLetras[posicao] = letra;
-    setLetras(novasLetras);
-    setPosicao(posicao + 1);
+    if (position == getMaxLine()) return;
+    if (blockGame) return;
 
-    console.log('Posicao:' + posicao);
+    var newLetters = [...letters];
+    newLetters[position] = letter;
+    setLetters(newLetters);
+    setPosition(position + 1);
+
+    console.log('Posição:' + position);
   }
 
   function backspace() {
-    console.log('Posicao:' + posicao);
 
-    if (posicao <= getMinLinha()) {
-      return;
-    }
+    if (position <= getMinLine()) return;
 
-    var novasLetras = [...letras];
-    if (novasLetras[posicao] == '') {
-      setPosicao(posicao - 1);
-      novasLetras[posicao - 1] = '';
+    var newLetters = [...letters];
+    if (newLetters[position] == '') {
+      setPosition(position - 1);
+      newLetters[position - 1] = '';
     } else {
-      novasLetras[posicao] = '';
+      newLetters[position] = '';
     }
 
-    setLetras(novasLetras)
+    setLetters(newLetters);
+    console.log('Posicao:' + position);
+
   }
 
-  function carregaLetrasPalavra(indicePalavra) {
-    letrasPalavra = PALAVRAS[indicePalavra].normalize('NFD').replace(/[\u0300-\u036f]/g, "").split("");
+  function fetchLettersFromWord(wordIndex) {
+    wordLetters = WORDS[wordIndex].normalize('NFD').replace(/[\u0300-\u036f]/g, "").split("");
   }
 
-  function defineVerde(letraTentativa, indiceLetra) {
+  function defineGreen(letterAttempt, letterIndex) {
 
-    if (letraTentativa == letrasPalavra[indiceLetra]) {
-      delete letrasPalavra[indiceLetra];
-      return 'colorGreen';//VERDE
+    if (letterAttempt == wordLetters[letterIndex]) {
+      delete wordLetters[letterIndex];
+      return 'colorGreen'; //VERDE
     }
 
-    return letraTentativa;
+    return letterAttempt;
   }
 
-  function defineCor(letraTentativa, indiceLetra) {
+  function defineColor(letterAttempt, letterIndex) {
 
-    if (letraTentativa === 'colorGreen') {
-      return letraTentativa;//VERDE
+    if (letterAttempt === 'colorGreen') {
+      return letterAttempt; //VERDE
     }
 
-    if (letrasPalavra.some(it => it === letraTentativa)) {
-      delete letrasPalavra[indiceLetra];
-      return 'colorYellow';//AMARELO
+    if (wordLetters.some(it => it === letterAttempt)) {
+      delete wordLetters[letterIndex];
+      return 'colorYellow'; //AMARELO
     }
 
     return 'colorGray'; //CINZA
   }
 
-  function verificaPalavra() {
+  function verifyWord() {
 
-    console.log('Linha:' + linha);
-    var letrasTentativa = letras.slice(getMinLinha(), getMaxLinha());
+    console.log('Linha:' + line);
+    var currentAttempt = letters.slice(getMinLine(), getMaxLine());
 
-    if (posicao != getMaxLinha() || !PALAVRAS.some(it => it.normalize('NFD').replace(/[\u0300-\u036f]/g, "") == letrasTentativa.join(''))) {
-      return;
-    }
+    if (position != getMaxLine()) return;
 
-    setLinha(linha + 1);
+    setLine(line + 1);
 
-    carregaLetrasPalavra(indicePalavra);
+    fetchLettersFromWord(wordIndex);
 
-    retornoPalavras = letrasTentativa.map(defineVerde).map(defineCor);
+    attemptReturn = currentAttempt.map(defineGreen).map(defineColor);
 
-    console.log('TENTATIVA: ' + letrasTentativa.join(''));
-    console.log('A PALAVRA É: ' + PALAVRAS[indicePalavra]);
-    console.log(retornoPalavras);
+    console.log('TENTATIVA: ' + currentAttempt.join(''));
+    console.log('A PALAVRA É: ' + WORDS[wordIndex]);
+    console.log(attemptReturn);
 
     let panel = document.getElementById('wordsPanel');
-    retornoPalavras.map((item, i) => {
+
+    attemptReturn.map((item, i) => {
       setTimeout(() => {
-        panel.childNodes[linha].childNodes[i].classList.add(item)
-        panel.childNodes[linha].childNodes[i].classList.add('rotate-in-center')
+        document.getElementById(currentAttempt[i]).classList = item;
+        panel.childNodes[line].childNodes[i].classList.add(item)
+        panel.childNodes[line].childNodes[i].classList.add('rotate-in-center')
       }, 200 * i)
     })
 
-    if (letrasTentativa.join('') === PALAVRAS[indicePalavra]) {
+    if (currentAttempt.join('') === WORDS[wordIndex].normalize('NFD').replace(/[\u0300-\u036f]/g, "")) {
       setTimeout(() => {
         setWinnerModalShow(true);
       }, 1500)
-    } else if (linha + 1 >= 6) {
+    } else if (line + 1 >= 6) {
       setTimeout(() => {
         setLoseModalShow(true);
       }, 1500)
     }
   }
 
-  function resetaPalavra() {
-    setLetras(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
-    setPosicao(0);
-    setLinha(0);
-    indicePalavra = geraIndiceAleatorio();
-    console.log('Palavra de id: ' + indicePalavra + ' é: ' + PALAVRAS[indicePalavra]);
+  function resetWord() {
+    setLetters(['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']);
+    setPosition(0);
+    setLine(0);
+    setBlockGame(false);
+    wordIndex = getRandomIndex();
+    console.log('PALAVRA RESETADA - id: ' + wordIndex + '. Palavra: ' + WORDS[wordIndex]);
     document.getElementById('wordsPanel').childNodes.forEach(el => el.childNodes.forEach(item => item.classList = []))
+    document.getElementById('keyboard').childNodes.forEach(el => el.childNodes.forEach(item => item.classList.remove('colorGreen', 'colorYellow', 'colorGray')))
   }
 
   return (
     <div className={styles.homeWrapper}>
-      <Header resetaPalavra={resetaPalavra} />
-      <WordsBox letras={letras} />
-      <Keyboard submitWord={verificaPalavra} onKeyIn={onKeyIn} backspace={backspace} />
-      <WinnerModal show={winnerModalShow} onHide={() => setWinnerModalShow(false)} attempts={linha} word={PALAVRAS[indicePalavra]} handleRestart={() => resetaPalavra()} />
-      <LoseModal show={loseModalShow} onHide={() => setLoseModalShow(false)} word={PALAVRAS[indicePalavra]} handleRestart={() => resetaPalavra()} />
+      <Header resetWord={resetWord} setBlockGame={setBlockGame} />
+      <WordsBox letters={letters} />
+      <Keyboard submitWord={verifyWord} onKeyIn={onKeyIn} backspace={backspace} />
+      <WinnerModal show={winnerModalShow} onHide={() => { setWinnerModalShow(false); setBlockGame(true) }} attempts={line} word={WORDS[wordIndex]} handleRestart={() => resetWord()} />
+      <LoseModal show={loseModalShow} onHide={() => { setLoseModalShow(false); setBlockGame(true) }} word={WORDS[wordIndex]} handleRestart={() => resetWord()} />
     </div>
   )
-}
-
-function geraIndiceAleatorio() {
-  let rand = Math.random() * (PALAVRAS.length - 1);
-  return Math.floor(rand);
 }

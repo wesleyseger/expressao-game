@@ -4,20 +4,11 @@ import styles from './styles.module.scss';
 import { Modal, Button } from 'react-bootstrap';
 import { Word } from '../Word';
 
-const ATTEMPTS_WORDS = [
-  'Inacreditável!',
-  'Fantástico!',
-  'Incrível!',
-  'Excelente!',
-  'Muito bom!',
-  'Ufa!'
-]
-
 export function LoseModal({ show, onHide, word, handleRestart }) {
 
   function restartGame() {
     onHide();
-    setTimeout(() => handleRestart(), 100)
+    setTimeout(() => handleRestart(), 200)
   }
 
   return (
@@ -34,9 +25,9 @@ export function LoseModal({ show, onHide, word, handleRestart }) {
 
         <h3>Não foi dessa vez!</h3>
         <h5>A palavra era: </h5>
-        <Word letras={[...word]} />
+        <Word word={[...word]} />
 
-        <Button variant="success" onClick={() => restartGame()}>Tentar novamente</Button>
+        <Button variant="success" onClick={() => restartGame()}>Jogar novamente</Button>
 
       </Modal.Body>
     </Modal>
