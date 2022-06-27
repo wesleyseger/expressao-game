@@ -1,9 +1,9 @@
 # expressao-game
 
-## Game developed for: 
+Game developed for: 
 Desenvolvimento para Web - Unisinos.
 
-## By:
+By:
 Luis Guilherme Eich, Pablo da Silva Klein, Wesley Henrique Seger.
 
-## Available on: https://expessao.codifysoftware.com.br
+Available on: https://expessao.codifysoftware.com.br
